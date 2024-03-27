@@ -1,0 +1,1007 @@
+/* 1em = 16px*/
+//MEDIA QUERY MANAGER
+
+/* 
+
+$breakpoint arugment choices : 
+-phone - 
+-tab-port 
+-tab-land-
+big-desktop 
+
+order: Base + Typography > general layout + grid > page laout  > comonents 
+
+0- 600px:    phone
+600-900px:   Tablet portrait
+900px-1200px:Tablet Landscape
+1200px-1800px: normal style apply
+1800px - + : big desktop
+*/
+
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) { @content }; //600px/16= 37.5
+  }
+  
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) { @content }; //900px/16= 
+  }
+  
+  @if $breakpoint == tab-land {
+    @media (max-width: 75em) { @content }; // 1200px / 16 = 
+  }
+  
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) { @content };
+  }
+}
+
+
+
+/*************VARIABLES*********************/
+/***********************************/
+
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-white: #fff;
+$color-black: #000;
+
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+
+$color-secondary-light:#ffb900;
+$color-secondary-dark:#ff7730;
+$color-tertiary-light:#2998ff;
+$color-tertiary-dark:#5643fa;
+
+
+/*************font*********************/
+/***********************************/
+// font sizes
+$default-font-size: 1.6rem;
+//font
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900");
+
+/************************************/
+/***********************************/
+
+/*************Normalize*********************/
+/*******************************************/
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  //this define what 1rem is 
+  font-size: 62.5%; //1rem = 10px; 10px/16px = 62.5
+  
+   @include respond(tab-land) {//width < 1200
+       font-size: 56.25%;  //1 rem = 9px, 9/16 =56.25
+      }   
+ 
+  
+  @include respond(tab-port) {//width < 900
+       font-size: 50%;  //1 rem = 8px, 8/16 =50
+      }
+  
+ 
+  @include respond(big-desktop) {
+       font-size: 75%;// 1rem = 12px , 12/16 = 75%
+  }
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /*font-size: 16px;*/
+  line-height: 1.7;
+  color: $color-grey-dark;
+  padding: 3rem;
+  box-sizing: border-box;
+  
+   @include respond(tab-port) {//width < 900
+        padding: 0;
+      }
+}
+
+
+
+/************************************/
+/***********************************/
+
+/************HEADER********************/
+/***********************************/
+.header {
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317246/hero_hqvqfj.jpg);
+  background-size: cover;
+  background-position: bottom;
+  position: relative;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
+
+.heading-primary {
+  color: $color-white;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+  
+  &--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    
+    @include respond(phone) { 
+      letter-spacing: 1rem;
+      font-size: 5rem;
+  }
+
+    /*
+  animation-delay: 3s;
+  animation-iteration-count: 2;
+  */
+  }
+  &--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.5rem;
+    animation: moveInRight 1s ease-out;
+    
+     @include respond(phone) { 
+      letter-spacing: .5em;
+      
+  }
+  }
+}
+
+/*************mixin*********************/
+/***********************************/
+@mixin abscenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+/*************KEYFRAMS*********************/
+/***********************************/
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+
+  80% {
+    transform: translateX(2rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+/************************************/
+/***********************************/
+
+/************BTN*******************/
+/***********************************/
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    position: relative;
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus{
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: #777;
+    &::after {
+      background-color: $color-white;
+    }
+  }
+  
+  &--green {
+    background-color: $color-primary;
+    color: #777;
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid $color-primary;
+    padding: 3px;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0);
+  }
+}
+
+/************ABOUT SECTION******************/
+/***********************************/
+
+.section-about {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0;
+  margin-top: -30vh;
+}
+
+/************************************/
+/***********************************/
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(
+    to right,
+    $color-primary-light,
+    $color-primary-dark
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: all 0.2s;
+  letter-spacing: 2px;
+  
+  @include respond(tap-port){
+    font-size: 3rem;
+  }
+  
+  @include respond(phone){
+    font-size: 2.5m;
+  }
+
+  &:hover {
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba($color-black, 0.2);
+  }
+}
+
+/************ALIGENMENT & PADDING******************/
+/***********************************/
+
+.u-center-text {
+  text-align: center !important;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important;
+}
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important;
+}
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important;
+}
+
+.u-margin-top {
+  margin-top: 8rem !important;
+}
+
+.u-margin-top-huge {
+  margin-top: 10rem !important;
+}
+
+/*******************************************/
+/***********************************/
+
+.heading-tertiary {
+  font-size: $default-font-size;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: $default-font-size;
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}
+
+.composition {
+  position: relative;
+  &__photo {
+    width: 55%;
+    box-shadow: 0 1.5rem 40rem rgba($color-black, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+    transition: all 0.2s;
+    outline-offset: 2rem;
+
+    &--p1 {
+      left: 0;
+      top: -2rem;
+    }
+    &--p2 {
+      right: 0;
+      top: 2rem;
+    }
+    &--p3 {
+      left: 20%;
+      top: 10rem;
+    }
+    &:hover {
+      outline: 1.5rem solid $color-primary;
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5);
+      z-index: 20;
+    }
+  }
+
+  &:hover &__photo:not(:hover) {
+    transform: scale(0.95);
+  }
+}
+
+
+
+
+/*********Feature Section***********/
+.section-features{
+  margin-top: -10rem;
+  padding: 20rem 0;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+  url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317244/nat-4_hqseaf.jpg);
+  background-size: cover;
+  transform: skewY(-7deg);
+  
+  & > * {
+    
+    transform: skewY(7deg);
+  }
+  
+}
+
+
+/***********************************/
+
+/************Feature Box***************/
+/***********************************/
+.feature-box{
+  
+  background-color: rgba($color-white, .8);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+  transition: transform .3s;
+  
+  
+  
+  
+  &__icon{
+    font-size: 6rem;
+    margin-bottom: 3rem;
+    display: inline-block;
+    background-image: linear-gradient(
+    to right,
+    $color-primary-light,
+    $color-primary-dark);
+  -webkit-background-clip: text;
+  color: transparent;
+  }
+  
+  &:hover {
+    transform: translateY(-1.5rem) scale(1.3);
+  }
+  
+  &__text { 
+  
+  }
+  
+  
+}
+
+/************section-tours*************************/
+/*****************/
+
+.section-tours{
+   background-color: $color-grey-light-1;
+   padding: 25rem 0 13rem 0;
+   margin-top: -15rem;
+  
+}
+
+/***************Cards*********************/
+.card{
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  height: 52rem;
+  
+  
+  
+  &__side{
+  position: absolute;
+  height: 52rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: all .9s ease;
+  backface-visibility: hidden;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    
+    &--front {
+      background-color: $color-white;
+    }
+    
+    &--back {
+      transform: rotateY(180deg);
+      &-1{
+        background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+      }
+       &-2{
+        background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+      }
+       &-3{
+        background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+      }
+    }
+    
+    
+  }
+  
+  &:hover  &__side--front{
+    transform: rotateY(-180deg);
+  }
+  
+  &:hover  &__side--back{
+    transform: rotateY(0deg);
+  }
+  //front side styling
+  &__picture{
+    background-size: cover;
+    height: 23rem;
+    background-blend-mode: screen;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+     border-top-left-radius: 3px;
+     border-top-right-radius: 3px;
+    &--1{
+      background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark),url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317244/nat-5_kcctcc.jpg);
+    
+    }
+    
+     &--2{
+      background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark),url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317245/nat-7_avgatd.jpg);
+  }
+   &--3{
+      background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark),url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317244/nat-6_dloyto.jpg);
+}
+  }
+  &__heading{
+    color: $color-white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    text-align: right;
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    width: 75%;
+    
+   
+  }
+  &__heading-span {
+    padding: .5rem 1.5rem;
+    box-decoration-break:clone;
+    &--1 {
+      background-image: linear-gradient(to right bottom, rgba($color-secondary-light,.85), rgba($color-secondary-dark,.85))
+    }
+    &--2 {
+      background-image: linear-gradient(to right bottom, rgba($color-primary-light,.85), rgba($color-primary-dark,.85))
+    }
+    &--3 {
+      background-image: linear-gradient(to right bottom, rgba($color-tertiary-light,.85), rgba($color-tertiary-dark,.85))
+    }
+  }
+  
+  &__details{
+    padding: 3rem;
+    
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto;
+      
+      
+      li{
+         text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+        
+        &:not(:last-child){
+          border-bottom: 1px solid $color-grey-light-2;
+        }
+      }
+    }
+  }
+    ///back side styling
+  &__cta {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    
+  }
+  
+  &__price-box{
+    text-align: center;
+    color: white;
+    margin-bottom: 8rem;
+  }
+  
+  &__price-only{
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+  
+  &__price-value{
+    font-size: 6rem;
+    font-weight: 100;
+  }
+}
+
+
+/************section-storeis************************/
+/***********************************/
+.section-storeis{
+  padding: 15rem 0;
+
+  position: relative;
+}
+
+.story{
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, .1);
+  background-color: rgba($color-white, .6);
+  border-radius: 3px;
+  padding: 6rem;
+  padding-left: 9rem;
+  font-size:$default-font-size;
+  transform: skewX(-12deg);
+  & > * {
+    transform: skewX(12deg);
+  }
+  
+  
+        
+}
+
+.shape{
+          width: 15rem;
+          height: 15rem;
+          float: left;
+          shape-outside: circle(50% at 50% 50%);
+          clip-path: circle(50% at 50% 50%);
+          transform: translateX(-3rem) skewX(12deg);
+          position: relative;
+ 
+        }
+.story-img{
+  height: 100%;
+  transform: translateX(-4rem) scale(1.4);
+  backface-visibility: hidden;
+   transition: all .5s;
+  
+}
+
+.story__text{
+  transform: skewX(12deg);
+}
+.story-caption{
+  position:absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, 20%);
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  text-align: center;
+  color: white;
+  opacity: 0;
+  transition: all .5s;
+  backface-visibility: hidden;
+}
+
+.story-caption:hover {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+
+.story-img:hover {
+  transform: translateX(-4rem) scale(1) ;
+  filter: blur(3px) brightness(80%);
+}
+
+
+/************************************/
+/**********bg-video******************/
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: .45;
+  overflow:hidden;
+  
+  &__content{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+/**************section-book*****************/
+.section-book{
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+}
+
+.book { 
+ background-image: linear-gradient(
+   105deg,
+   rgba($color-white,.5) 0%,
+   rgba($color-white,.5) 50%,
+   transparent 50%),
+  url(https://res.cloudinary.com/dsidgjfin/image/upload/v1535317245/nat-10_u6awls.jpg);
+ background-size: cover;
+ background-repeat: no-repeat;
+ border-radius: 3px;
+ box-shadow: 0 1.5rem 4rem rgba($color-black, .2);
+ height: 50rem;
+ 
+  &__form{
+    width: 50%;
+    padding: 6rem;
+  }
+}
+/************************************/
+/************************************/
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit;
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        background-color: rbga($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent;
+        width: 90%;
+        display: block;
+        transition: all .3s;
+
+      
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+        }
+
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+    }
+
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display: block;
+        transition: all .3s;
+    }
+
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+
+
+    &__radio-group {
+        width: 49%;
+        display: inline-block;
+
+       
+    }
+
+    &__radio-input {
+        display: none !important;
+    }
+    
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -.4rem;
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+}
+
+/*************footer**************/
+/***********************************/
+.footer{
+  background-color: $color-grey-dark-3;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+  color: $color-grey-light-1 !important;
+  
+  &__logo-box { 
+   text-align: center;
+   margin-bottom: 8rem;
+   
+  }
+  
+  &__logo { 
+    width: 15rem;
+    height: auto;
+    
+  }
+  
+  &__navigation{
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+    display: inline-block;
+  }
+  
+  &__list {
+    list-style: none;
+    
+  }
+  
+  &__item{
+    display: inline-block;
+    &:not(:last-child){
+      margin-right: 1.5rem;
+    }
+    
+  }
+  &__link{
+    &:link,
+    &:visited {
+      color: $color-grey-light-1 !important;
+      background-color: $color-grey-dark-3;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-block;
+      transition: all .2s;
+    }
+    &:hover,
+    &:active{
+      color: $color-primary !important;
+      text-decoration: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, -.4) !important; 
+      transform: rotate(5deg) scale(1.3);
+    }
+  }
+  
+  &__copyrights{
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+    width: 80%;
+   
+    text-align: justify;
+  }
+  
+}
+/***********end footer**************/
+
+
+/*************nav*********************/
+/***********************************/
+.navigation{
+  &__checkbox{
+    display: none !important;
+    
+  }
+  
+  &__button {
+    background: $color-white;
+    height: 7rem;
+    width: 7rem;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    z-index: 205000;
+    box-shadow: 0 1rem 3rem rgba($color-black, .1);
+    text-align: center;
+    cursor:pointer;
+    
+  }
+  
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient($color-primary-light, $color-primary-dark);
+    z-index: 10000;
+    transition: trans
